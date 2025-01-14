@@ -1,4 +1,5 @@
 import numpy as np
+from collections import Counter
 
 # computes the euclidean distance
 def euclidean_distance(x1, x2):
@@ -11,3 +12,8 @@ def mse(y_true, y_predicted):
 # computes the accuracy score
 def accuracy_score(y_true, y_predicted):
     return np.sum(y_true == y_predicted) / len(y_true)
+
+def most_common_label(y):
+    counter = Counter(y)
+    most_common = counter.most_common(1)[0][0]
+    return most_common

@@ -1,5 +1,5 @@
 import numpy as np
-from collections import Counter
+from utils import most_common_label
 
 def entropy(y):
     hist = np.bincount(y)
@@ -39,7 +39,7 @@ class DecisionTree:
         if (depth >= self.max_depth
             or n_labels ==1
             or n_samples < self.min_samples_split):
-            leaf_value = self._most_common_label(y)
+            leaf_value = most_common_label(y)
             return Node(value=leaf_value)
         
         feat_idxs = np.random.choice(n_features, self.n_feats, replace=False)
@@ -96,8 +96,3 @@ class DecisionTree:
         if x[node.feature] <= node.threshold:
             return self._traverse_tree(x, node.left)
         return self._traverse_tree(x, node.right)
-
-    def _most_common_label(self, y):
-        counter = Counter(y)
-        most_common = counter.most_common(1)[0][0]
-        return most_common
